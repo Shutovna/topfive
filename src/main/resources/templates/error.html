@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error page</title>
+</head>
+<body>
+<p>Произошла ошибка.</p>
+
+Failed URL: <p data-th-text="${url}"></p>
+Exception: <p data-th-text="${exception?.message}"></p>
+<table>
+    <tr data-th-each="ste : ${exception?.stackTrace}">
+        <td data-th-text="${ste}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
