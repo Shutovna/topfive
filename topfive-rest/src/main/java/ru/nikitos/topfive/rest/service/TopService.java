@@ -1,6 +1,6 @@
-package ru.nikitos.topfive.service;
+package ru.nikitos.topfive.rest.service;
 
-import ru.nikitos.topfive.entity.Top;
+import ru.nikitos.topfive.rest.entity.Top;
 
 import java.util.List;
 import java.util.Optional;

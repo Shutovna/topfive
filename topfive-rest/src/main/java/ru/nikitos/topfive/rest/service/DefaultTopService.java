@@ -1,16 +1,16 @@
-package ru.nikitos.topfive.service;
+package ru.nikitos.topfive.rest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.nikitos.topfive.data.TopRepository;
-import ru.nikitos.topfive.entity.Top;
+import ru.nikitos.topfive.rest.data.TopRepository;
+import ru.nikitos.topfive.rest.entity.Top;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-public class DefaultTopService implements TopService{
+public class DefaultTopService implements TopService {
 
     @Autowired
     private TopRepository topRepository;
