@@ -15,12 +15,13 @@ import ru.nikitos.topfive.rest.service.TopService;
 
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("topfive-api/tops/{topId:\\d+}")
 @RequiredArgsConstructor
 public class TopRestController {
-        private final TopService topService;
+    private final TopService topService;
 
     private final MessageSource messageSource;
 
@@ -54,21 +55,18 @@ public class TopRestController {
     @DeleteMapping
     public ResponseEntity<Void> deleteTop(@PathVariable("topId") long topId) {
         this.topService.deleteTop(topId);
-        return ResponseEntity.noContent()
-                .build();
+        return ResponseEntity.noContent().build();
     }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ProblemDetail> handleNoSuchElementException(NoSuchElementException exception,
                                                                       Locale locale) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ProblemDetail.forStatusAndDetail(
-                                HttpStatus.NOT_FOUND,
-                                this.messageSource.getMessage(exception.getMessage(),
-                                        new Object[0],
-                                        exception.getMessage(), locale)
-                        )
-                );
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND,
+                Objects.requireNonNull(
+                        messageSource.getMessage(exception.getMessage(),new Object[0],exception.getMessage(), locale))
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
     }
 
 }

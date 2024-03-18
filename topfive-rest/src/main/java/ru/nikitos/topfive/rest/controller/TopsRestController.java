@@ -29,8 +29,8 @@ public class TopsRestController {
 
     @PostMapping
     public ResponseEntity<?> createTop(@Valid @RequestBody NewTopPayload payload,
-                                           BindingResult bindingResult,
-                                           UriComponentsBuilder uriComponentsBuilder)
+                                       BindingResult bindingResult,
+                                       UriComponentsBuilder uriComponentsBuilder)
             throws BindException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
@@ -41,10 +41,11 @@ public class TopsRestController {
         } else {
             Top top = this.productService.createTop(payload.title(), payload.details());
             return ResponseEntity
-                    .created(uriComponentsBuilder
-                            .replacePath("/topfive-api/tops/{topId}")
-                            .build(Map.of("topId", top.getId())))
-                    .body(top);
+                    .created(
+                            uriComponentsBuilder
+                                    .replacePath("/topfive-api/tops/{topId}")
+                                    .build(Map.of("topId", top.getId()))
+                    ).body(top);
         }
     }
 }

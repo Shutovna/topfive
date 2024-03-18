@@ -1,4 +1,4 @@
-package ru.nikitos.topfive.web;
+package ru.nikitos.topfive.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.MessageSource;
@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("main");
+        registry.addViewController("/").setViewName("redirect:tops/table");
         registry.addViewController("/login").setViewName("login");
     }
     @Bean
