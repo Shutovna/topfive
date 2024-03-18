@@ -11,11 +11,12 @@ import ru.nikitos.topfive.rest.controller.payload.NewTopPayload;
 import ru.nikitos.topfive.rest.entity.Top;
 import ru.nikitos.topfive.rest.service.TopService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("topfive-api/tops/tops")
+@RequestMapping("topfive-api/tops")
 @RequiredArgsConstructor
 public class TopsRestController {
 
