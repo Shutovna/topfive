@@ -8,9 +8,9 @@
 <p>Произошла ошибка.</p>
 
 Failed URL: <p data-th-text="${url}"></p>
-Exception: <p data-th-text="${exception?.message}"></p>
+Exception: <p data-th-text="${exception}"></p>
 <table>
-    <tr data-th-each="ste : ${exception?.stackTrace}">
+    <tr data-th-each="ste : ${stackTrace}">
         <td data-th-text="${ste}"></td>
     </tr>
 </table>

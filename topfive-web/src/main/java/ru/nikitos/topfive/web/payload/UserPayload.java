@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UserPayload {
-    @NotNull(message = "{catalogue.products.update.errors.title_is_null}}")
+    @NotNull(message = "{ru.nikitos.msg.username.not_null}")
     @Size(min = 4, max = 50, message = "{ru.nikitos.msg.username.size}")
     private String username;
     @NotNull(message = "{ru.nikitos.msg.password.not_null}")

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${top.title}]]</title>
+</head>
+<body>
+<a data-th-href="@{/tops/table}">&larr; К списку топов</a>
+<h1 data-th-text="${top.title}"></h1>
+<ul>
+    <li><strong>ID</strong>: <span data-th-text="${top.id}"></span></li>
+    <li><strong>Название</strong>: <span data-th-text="${top.title}"></span></li>
+    <li><strong>Описание</strong>: <span data-th-text="${top.details}"></span></li>
+</ul>
+<a data-th-href="@{/tops/{topId}/edit(topId=${top.id})}">Изменить</a>
+<form method="post" data-th-action="@{/tops/{topId}/delete(topId=${top.id})}">
+    <button type="submit">Удалить</button>
+</form>
+</body>
+</html>
