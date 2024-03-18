@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="topfive-web" />
+        <module name="topfive-rest" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -17,6 +18,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="topfive" options="-parameters" />
+      <module name="topfive-rest" options="-parameters" />
       <module name="topfive-rest-service" options="-parameters" />
       <module name="topfive-web" options="-parameters" />
     </option>
