@@ -26,8 +26,10 @@ public class DefaultTopService implements TopService {
     }
 
     @Override
-    public Top createTop(String title, String details) {
-        return topRepository.save(Top.builder().title(title).details(details).build());
+    public Top createTop(String title, String details, Top.TopType topType) {
+        return topRepository.save(Top.builder()
+                .type(topType).title(title).details(details)
+                .build());
     }
 
     @Override

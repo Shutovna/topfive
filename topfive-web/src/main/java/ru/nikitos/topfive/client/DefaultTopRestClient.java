@@ -34,13 +34,13 @@ public class DefaultTopRestClient implements TopRestClient {
     }
 
     @Override
-    public Top createTop(String title, String details) {
+    public Top createTop(String title, String details, Top.TopType type) {
         try {
             return this.restClient
                     .post()
                     .uri("/topfive-api/tops")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(new NewTopPayload(title, details))
+                    .body(new NewTopPayload(title, details, type))
                     .retrieve()
                     .body(Top.class);
         } catch (HttpClientErrorException.BadRequest exception) {

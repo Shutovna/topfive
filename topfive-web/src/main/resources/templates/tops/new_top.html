@@ -23,6 +23,13 @@
         Описание:<br>
         <textarea name="details" data-th-text="${top?.details}"></textarea>
     </label><br>
+
+    <label>Выберите тип топа:<br>
+       <select name="topType" id="topType">
+            <option th:each="type : ${topTypes}" th:value="${type}" th:text="${type.name}"></option>
+        </select>
+    </label>
+
     <button type="submit">Создать</button>
 </form>
 

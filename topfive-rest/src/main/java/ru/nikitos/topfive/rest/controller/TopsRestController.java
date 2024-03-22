@@ -42,7 +42,7 @@ public class TopsRestController {
                 throw new BindException(bindingResult);
             }
         } else {
-            Top top = this.productService.createTop(payload.title(), payload.details());
+            Top top = this.productService.createTop(payload.title(), payload.details(), payload.topType());
             return ResponseEntity
                     .created(
                             uriComponentsBuilder

@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface TopService {
     List<Top> findAllTops(String filter);
 
-    Top createTop(String title, String details);
+    Top createTop(String title, String details, Top.TopType topType);
 
     Optional<Top> findTop(Integer topId);
 

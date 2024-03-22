@@ -9,6 +9,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-public record Top (Long id, String title, String details) {
+@Data
+@AllArgsConstructor
+public class Top {
+    public enum TopType {
+        SONG("Музыка"), VIDEO("Видео"), PHOTO("Фото");
 
+        TopType(String name) {
+            this.name = name;
+        }
+
+        final String name;
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    private Integer id;
+    private String title;
+    private String details;
+    private TopType type;
 }

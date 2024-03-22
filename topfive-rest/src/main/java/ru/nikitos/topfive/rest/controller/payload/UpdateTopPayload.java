@@ -8,5 +8,4 @@ public record UpdateTopPayload(
         @Size(min = 4, max = 50, message = "{ru.nikitos.msg.top.title.size}")
         String title,
         String details) {
-
 }

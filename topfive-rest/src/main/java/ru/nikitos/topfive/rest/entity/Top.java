@@ -17,9 +17,16 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class Top {
+    public enum TopType {
+        SONG, VIDEO, PHOTO
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topfive_seq")
     private Integer id;
+
+    @NotNull
+    private TopType type;
 
     @NotNull
     private String title;
@@ -32,8 +39,9 @@ public class Top {
     @ManyToMany
     protected Set<Rating> ratings = new HashSet<>();
 
-    public Top(String title, String details) {
+    public Top(String title, String details, TopType type) {
         this.title = title;
         this.details = details;
+        this.type = type;
     }
 }
