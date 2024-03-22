@@ -5,7 +5,7 @@ import ru.nikitos.topfive.rest.entity.Top;
 
 import java.util.List;
 
-public interface TopRepository extends JpaRepository<Top, Long> {
+public interface TopRepository extends JpaRepository<Top, Integer> {
 
     List<Top> findAllByTitleLikeIgnoreCase(String filter);
 

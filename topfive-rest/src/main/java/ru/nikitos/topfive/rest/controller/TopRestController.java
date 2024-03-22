@@ -26,7 +26,7 @@ public class TopRestController {
     private final MessageSource messageSource;
 
     @ModelAttribute("top")
-    public Top getTop(@PathVariable("topId") long topId) {
+    public Top getTop(@PathVariable("topId") int topId) {
         return this.topService.findTop(topId)
                 .orElseThrow(() -> new NoSuchElementException("ru.nikitos.msg.top.not_found"));
     }
@@ -37,7 +37,7 @@ public class TopRestController {
     }
 
     @PatchMapping
-    public ResponseEntity<?> updateTop(@PathVariable("topId") long topId,
+    public ResponseEntity<?> updateTop(@PathVariable("topId") int topId,
                                        @Valid @RequestBody UpdateTopPayload payload,
                                        BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
@@ -53,7 +53,7 @@ public class TopRestController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteTop(@PathVariable("topId") long topId) {
+    public ResponseEntity<Void> deleteTop(@PathVariable("topId") int topId) {
         this.topService.deleteTop(topId);
         return ResponseEntity.noContent().build();
     }

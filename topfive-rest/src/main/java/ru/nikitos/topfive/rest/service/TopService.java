@@ -10,9 +10,9 @@ public interface TopService {
 
     Top createTop(String title, String details);
 
-    Optional<Top> findTop(Long topId);
+    Optional<Top> findTop(Integer topId);
 
-    Top updateTop(Long topId, String title, String details);
+    Top updateTop(Integer topId, String title, String details);
 
-    void deleteTop(Long topId);
+    void deleteTop(Integer topId);
 }

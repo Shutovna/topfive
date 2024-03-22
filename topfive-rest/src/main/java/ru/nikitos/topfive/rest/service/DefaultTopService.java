@@ -31,12 +31,12 @@ public class DefaultTopService implements TopService {
     }
 
     @Override
-    public Optional<Top> findTop(Long topId) {
+    public Optional<Top> findTop(Integer topId) {
         return topRepository.findById(topId);
     }
 
     @Override
-    public Top updateTop(Long topId, String title, String details) {
+    public Top updateTop(Integer topId, String title, String details) {
         Top top = topRepository.findById(topId).orElseThrow(NoSuchElementException::new);
         top.setTitle(title);
         top.setDetails(details);
@@ -44,7 +44,7 @@ public class DefaultTopService implements TopService {
     }
 
     @Override
-    public void deleteTop(Long topId) {
+    public void deleteTop(Integer topId) {
         topRepository.deleteById(topId);
     }
 }

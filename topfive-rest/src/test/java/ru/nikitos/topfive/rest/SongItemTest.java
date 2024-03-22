@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @DataJpaTest
-public class SongItemMappingTest {
+public class SongItemTest {
     @PersistenceContext
     private EntityManager entityManager;
     @Autowired
@@ -73,6 +73,7 @@ public class SongItemMappingTest {
         assertEquals(genre, songDb.getGenre());
         assertEquals("testDescription", songDb.getDescription());
         assertArrayEquals(mp3AsByteArray, songDb.getData());
+        assertTrue(songDb.getRatings().isEmpty());
 
         SongItem songDb2 = songItemRepository.findById(song2.getId()).orElseThrow();
         assertTrue(songDb2.getId() > 1000);
@@ -81,6 +82,7 @@ public class SongItemMappingTest {
         assertEquals(genre, songDb2.getGenre());
         assertEquals("testDescription2", songDb2.getDescription());
         assertArrayEquals(mp3AsByteArray, songDb2.getData());
+        assertTrue(songDb2.getRatings().isEmpty());
     }
 
     @Test

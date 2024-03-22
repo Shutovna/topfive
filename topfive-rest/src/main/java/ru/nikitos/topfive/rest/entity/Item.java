@@ -10,7 +10,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -32,7 +34,7 @@ public abstract class Item {
     protected String description;
 
     @ManyToMany
-    protected List<Rating> ratings;
+    protected Set<Rating> ratings = new HashSet<>();
 
     public Item(@NotNull String title, String description, @NotNull byte[] data) {
         this.title = title;

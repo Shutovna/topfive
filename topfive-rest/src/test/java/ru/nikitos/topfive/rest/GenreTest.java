@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import ru.nikitos.topfive.rest.data.GenreRepository;
 import ru.nikitos.topfive.rest.entity.Genre;
-import ru.nikitos.topfive.rest.entity.SongItem;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-public class GenreMappingTest {
+public class GenreTest {
     @Autowired
     GenreRepository genreRepository;
 
