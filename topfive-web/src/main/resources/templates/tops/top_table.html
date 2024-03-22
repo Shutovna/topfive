@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -10,6 +11,13 @@
 <body>
 <h1>Список топов</h1>
 <a data-th-href="@{/tops/create}">+ Создать топ</a>
+
+<form method="get" data-th-action="@{/tops/table}">
+    <label>Фильтр:<input type="text" name="filter" data-th-value="${filter}"/>
+        <button type="submit">Поиск</button>
+    </label>
+</form>
+
 <table class="zui-table">
     <thead>
     <tr>
@@ -29,6 +37,18 @@
     </tr>
     </tbody>
 </table>
+
+<br/><hr/>
+<h3 th:inline="text">Пользователь: <span th:remove="tag" sec:authentication="name">USERNAME</span></h3>
+
+<div sec:authorize="isAuthenticated()">
+    <form data-th-action="@{/logout}" method="post">
+        <input type="submit" value="Выйти"/>
+    </form>
+</div>
+<div sec:authorize="isAnonymous()">
+    Нажмите <a data-th-href="@{/login}">здесь</a> для входа
+</div>
 
 </body>
 </html>

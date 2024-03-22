@@ -59,7 +59,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        return "redirect:/main";
+        return "redirect:/";
     }
 
 }

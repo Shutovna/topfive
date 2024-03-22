@@ -1,5 +1,6 @@
 package ru.nikitos.topfive.rest.service;
 
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nikitos.topfive.rest.data.TopRepository;
@@ -16,17 +17,21 @@ public class DefaultTopService implements TopService {
     private TopRepository topRepository;
 
     @Override
-    public List<Top> getAllTops() {
-        return topRepository.findAll();
+    public List<Top> findAllTops(String filter) {
+        if (StringUtils.isEmpty(filter)) {
+            return topRepository.findAll();
+        } else {
+            return topRepository.findAllByTitleLikeIgnoreCase("%" + filter + "%");
+        }
     }
 
     @Override
     public Top createTop(String title, String details) {
-        return topRepository.save(new Top(null, title, details));
+        return topRepository.save(Top.builder().title(title).details(details).build());
     }
 
     @Override
-    public Optional<Top> getTop(Long topId) {
+    public Optional<Top> findTop(Long topId) {
         return topRepository.findById(topId);
     }
 

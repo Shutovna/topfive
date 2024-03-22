@@ -13,13 +13,13 @@
 
 <h1 data-th-text="#{ru.nikitos.msg.label.form.title}"></h1>
 <form data-th-action="@{/register}" method="post">
-    <label for="username" data-th-text="#{ru.nikitos.msg.label.user.firstName}"></label>
+    <label for="username" data-th-text="#{ru.nikitos.msg.label.topfiveUser.firstName}"></label>
     <input type="text" name="username" data-th-value="${payload?.username}"><br/>
 
-    <label for="password" data-th-text="#{ru.nikitos.msg.label.user.password}"></label>
+    <label for="password" data-th-text="#{ru.nikitos.msg.label.topfiveUser.password}"></label>
     <input type="password" name="password" data-th-value="${payload?.password}"><br/>
 
-    <label for="passwordRepeat" data-th-text="#{ru.nikitos.msg.label.user.password_repeat}"></label>
+    <label for="passwordRepeat" data-th-text="#{ru.nikitos.msg.label.topfiveUser.password_repeat}"></label>
     <input type="password" name="passwordRepeat" data-th-value="${payload?.passwordRepeat}"><br/>
 
     <button type="submit" data-th-text="#{ru.nikitos.msg.label.submit}"></button>

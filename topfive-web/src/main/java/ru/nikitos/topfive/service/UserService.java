@@ -1,39 +1,56 @@
 package ru.nikitos.topfive.service;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ru.nikitos.topfive.data.AuthorityRepository;
 import ru.nikitos.topfive.data.UserRepository;
-import ru.nikitos.topfive.entity.User;
+import ru.nikitos.topfive.entity.Authority;
+import ru.nikitos.topfive.entity.TopfiveUser;
 
+import java.util.Arrays;
+import java.util.Optional;
+
+@RequiredArgsConstructor
+@Transactional
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final AuthorityRepository authorityRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Cant find user with username: " + username);
-        }
-        return user;
+        return userRepository.findByUsername(username)
+                .map(topfiveUser -> User.builder()
+                        .username(topfiveUser.getUsername())
+                        .password(topfiveUser.getPassword())
+                        .authorities(topfiveUser.getAuthorities().stream()
+                                .map(Authority::getAuthority)
+                                .map(SimpleGrantedAuthority::new)
+                                .toList())
+                        .build())
+                .orElseThrow(() -> new UsernameNotFoundException("Cant find user with username: " + username));
     }
 
     public void saveUser(String username, String password) throws UserAlreadyExistsException {
-        User userFromDB = userRepository.findByUsername(username);
-        if(userFromDB != null) {
-            throw new UserAlreadyExistsException("User %s already exists".formatted(userFromDB));
-        }
+        Optional<TopfiveUser> topfiveUserFromDB = userRepository.findByUsername(username);
+        if (topfiveUserFromDB.isEmpty()) {
+            TopfiveUser topfiveUser = new TopfiveUser(username, bCryptPasswordEncoder.encode(password));
+            Authority authority = authorityRepository.findByAuthorityEquals("ROLE_USER").orElseThrow(
+                    IllegalStateException::new
+            );
+            topfiveUser.setAuthorities(Arrays.asList(authority));
+            userRepository.save(topfiveUser);
 
-        User user = new User(username, bCryptPasswordEncoder.encode(password));
-        user.setRole("ROLE_USER");
-        userRepository.save(user);
+        } else {
+            throw new UserAlreadyExistsException("User %s already exists".formatted(topfiveUserFromDB));
+        }
     }
 
     public boolean deleteUser(Long userId) {

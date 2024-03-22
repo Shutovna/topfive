@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import ru.nikitos.topfive.client.BadRequestException;
 import ru.nikitos.topfive.entity.Top;
 import ru.nikitos.topfive.client.TopRestClient;
 import ru.nikitos.topfive.web.payload.UpdateTopPayload;
@@ -30,7 +31,7 @@ public class TopController {
 
     @ModelAttribute("top")
     private Top getTop(@PathVariable Long topId) {
-        return topRestClient.getTop(topId).orElseThrow(
+        return topRestClient.findTop(topId).orElseThrow(
                 () -> new NoSuchElementException("ru.nikitos.msg.top.not_found")
         );
     }
@@ -52,20 +53,17 @@ public class TopController {
                             @Valid UpdateTopPayload topPayload, BindingResult bindingResult,
                             Model model
     ) {
-        if (bindingResult.hasErrors()) {
-            Stream<String> errors = bindingResult.getAllErrors().stream().map(
-                    ObjectError::getDefaultMessage
-            );
-            log.warn("Errors in updating top {}", errors);
-            model.addAttribute("errors", errors);
-            model.addAttribute("top", topPayload);
+        try {
+            topRestClient.updateTop(topId, topPayload.title(), topPayload.details());
+            log.info("Updated top {}", topId);
+            return "redirect:/tops/%d".formatted(topId);
+        } catch (BadRequestException e) {
+            log.warn("Errors in updating top {}", e.getErrors());
+            model.addAttribute("errors", e.getErrors());
+            model.addAttribute("payload", topPayload);
             return "tops/edit_top";
+
         }
-
-        topRestClient.updateTop(topId, topPayload.title(), topPayload.details());
-        log.info("Updated top {}", topId);
-
-        return "redirect:/tops/%d".formatted(topId);
     }
 
     @PostMapping("delete")

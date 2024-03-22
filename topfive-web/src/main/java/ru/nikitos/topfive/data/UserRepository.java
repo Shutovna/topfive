@@ -1,9 +1,11 @@
 package ru.nikitos.topfive.data;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ru.nikitos.topfive.entity.User;
+import ru.nikitos.topfive.entity.TopfiveUser;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username) throws UsernameNotFoundException;
+import java.util.Optional;
+
+public interface UserRepository extends CrudRepository<TopfiveUser, Long> {
+    Optional<TopfiveUser> findByUsername(String username) throws UsernameNotFoundException;
 }

@@ -25,10 +25,10 @@ public class DefaultTopRestClient implements TopRestClient {
     private final RestClient restClient;
 
     @Override
-    public List<Top> getAllTops() {
+    public List<Top> findAllTops(String filter) {
         return this.restClient
                 .get()
-                .uri("/topfive-api/tops")
+                .uri("/topfive-api/tops?filter={filter}", filter)
                 .retrieve()
                 .body(TOPS_TYPE_REFERENCE);
     }
@@ -49,7 +49,7 @@ public class DefaultTopRestClient implements TopRestClient {
         }
     }
 
-    public Optional<Top> getTop(Long topId) {
+    public Optional<Top> findTop(Long topId) {
         try {
             return Optional.ofNullable(this.restClient.get()
                     .uri("/topfive-api/tops/{topId}", topId)

@@ -27,7 +27,7 @@ public class TopRestController {
 
     @ModelAttribute("top")
     public Top getTop(@PathVariable("topId") long topId) {
-        return this.topService.getTop(topId)
+        return this.topService.findTop(topId)
                 .orElseThrow(() -> new NoSuchElementException("ru.nikitos.msg.top.not_found"));
     }
 

@@ -9,12 +9,10 @@
 <h1>Топ пять. Главная страница </h1>
 <h1 th:inline="text">Привет <span th:remove="tag" sec:authentication="name">USERNAME</span>!</h1>
 
-
 <div sec:authorize="isAuthenticated()">
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Выйти"/>
     </form>
-    <!--<a th:href="@{/logout}">Выйти</a>-->
 </div>
 <div sec:authorize="isAnonymous()">
     Click <a th:href="@{/login}">here</a> for login.
