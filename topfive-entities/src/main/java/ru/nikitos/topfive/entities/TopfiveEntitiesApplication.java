@@ -1,4 +1,4 @@
-package ru.nikitos.topfive.topfive.entities;
+package ru.nikitos.topfive.entities;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package ru.nikitos.topfive.topfive.entities;
+package ru.nikitos.topfive.entities;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
