@@ -1,17 +1,12 @@
-package ru.nikitos.topfive.rest.entity;
+package ru.nikitos.topfive.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

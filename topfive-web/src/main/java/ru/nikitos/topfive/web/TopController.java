@@ -8,16 +8,14 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ru.nikitos.topfive.client.BadRequestException;
-import ru.nikitos.topfive.entity.Top;
+import ru.nikitos.topfive.entities.Top;
 import ru.nikitos.topfive.client.TopRestClient;
 import ru.nikitos.topfive.web.payload.UpdateTopPayload;
 
 import java.util.Locale;
 import java.util.NoSuchElementException;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("tops/{topId:\\d+}")

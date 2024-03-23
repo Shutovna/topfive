@@ -6,8 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
-import ru.nikitos.topfive.entity.Top;
-import ru.nikitos.topfive.entity.TopType;
+import ru.nikitos.topfive.entities.Top;
+import ru.nikitos.topfive.entities.TopType;
 import ru.nikitos.topfive.web.payload.NewTopPayload;
 import ru.nikitos.topfive.web.payload.UpdateTopPayload;
 

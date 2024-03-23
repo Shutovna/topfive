@@ -1,8 +1,7 @@
-package ru.nikitos.topfive.rest.entity;
+package ru.nikitos.topfive.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 

@@ -8,8 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.core.io.Resource;
 import ru.nikitos.topfive.rest.data.GenreRepository;
 import ru.nikitos.topfive.rest.data.VideoItemRepository;
-import ru.nikitos.topfive.rest.entity.Genre;
-import ru.nikitos.topfive.rest.entity.VideoItem;
+import ru.nikitos.topfive.entities.Genre;
+import ru.nikitos.topfive.entities.VideoItem;
 
 import java.io.IOException;
 import java.util.List;

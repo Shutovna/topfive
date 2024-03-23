@@ -1,11 +1,9 @@
-package ru.nikitos.topfive.rest.entity;
+package ru.nikitos.topfive.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.util.Date;
 
 @Entity
 @Data

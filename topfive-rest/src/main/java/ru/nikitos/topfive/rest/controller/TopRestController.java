@@ -10,7 +10,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.nikitos.topfive.rest.controller.payload.UpdateTopPayload;
-import ru.nikitos.topfive.rest.entity.Top;
+import ru.nikitos.topfive.entities.Top;
 import ru.nikitos.topfive.rest.service.TopService;
 
 import java.util.Locale;

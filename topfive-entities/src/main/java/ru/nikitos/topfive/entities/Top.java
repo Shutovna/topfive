@@ -1,4 +1,4 @@
-package ru.nikitos.topfive.rest.entity;
+package ru.nikitos.topfive.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,9 +16,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class Top {
-    public enum TopType {
-        SONG, VIDEO, PHOTO
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topfive_seq")

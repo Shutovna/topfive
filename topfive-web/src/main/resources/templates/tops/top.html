@@ -15,10 +15,9 @@
 </ul>
 
 <div th:switch="${top.type}">
-    <p th:case="${T(ru.nikitos.topfive.entity.TopType).SONG}"><a data-th-href="@{/items/create?type=SONG}">+ Добавить песню</a></p>
-    <p th:case="${T(ru.nikitos.topfive.entity.TopType).VIDEO}"><a data-th-href="@{/items/create?type=VIDEO}">+ Добавить видео</a></p>
-    <p th:case="${T(ru.nikitos.topfive.entity.TopType).PHOTO}"><a data-th-href="@{/items/create?type=PHOTO}">+ Добавить фото</a></p>
-    <p th:case="*" data-th-text="${top.type}">User is some other thing </p>
+    <p th:case="${T(ru.nikitos.topfive.entities.TopType).SONG}"><a data-th-href="@{/items/create?type=SONG}">+ Добавить песню</a></p>
+    <p th:case="${T(ru.nikitos.topfive.entities.TopType).VIDEO}"><a data-th-href="@{/items/create?type=VIDEO}">+ Добавить видео</a></p>
+    <p th:case="${T(ru.nikitos.topfive.entities.TopType).PHOTO}"><a data-th-href="@{/items/create?type=PHOTO}">+ Добавить фото</a></p>
 </div>
 
 <form method="get" data-th-action="@{/tops/{topId}/edit(topId=${top.id})}">

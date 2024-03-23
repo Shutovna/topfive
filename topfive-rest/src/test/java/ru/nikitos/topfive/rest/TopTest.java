@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import ru.nikitos.topfive.rest.data.TopRepository;
-import ru.nikitos.topfive.rest.entity.Top;
-
-import java.util.Optional;
+import ru.nikitos.topfive.entities.Top;
+import ru.nikitos.topfive.entities.TopType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,31 +16,31 @@ public class TopTest {
     TopRepository topRepository;
     @Test
     public void testCreate() {
-        Top top = new Top("newTitle", "newDetails", Top.TopType.SONG);
+        Top top = new Top("newTitle", "newDetails", TopType.SONG);
         top = topRepository.saveAndFlush(top);
 
         Top topDB = topRepository.findById(top.getId()).orElseThrow();
         assertEquals("newTitle", topDB.getTitle());
         assertEquals("newDetails", topDB.getDetails());
-        assertEquals(Top.TopType.SONG, topDB.getType());
+        assertEquals(TopType.SONG, topDB.getType());
         assertTrue(topDB.getItems().isEmpty());
         assertTrue(topDB.getRatings().isEmpty());
     }
 
     @Test
     public void testUpdate() {
-        Top top = new Top("newTitle", "newDetails", Top.TopType.VIDEO);
+        Top top = new Top("newTitle", "newDetails", TopType.VIDEO);
         top = topRepository.saveAndFlush(top);
 
         top.setTitle("updatedTitle");
         top.setDetails("updatedDetails");
-        top.setType(Top.TopType.PHOTO);
+        top.setType(TopType.PHOTO);
         topRepository.flush();
 
         Top topDB = topRepository.findById(top.getId()).orElseThrow();
         assertEquals("updatedTitle", topDB.getTitle());
         assertEquals("updatedDetails", topDB.getDetails());
-        assertEquals(Top.TopType.PHOTO, topDB.getType());
+        assertEquals(TopType.PHOTO, topDB.getType());
     }
 
     @Test

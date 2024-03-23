@@ -2,7 +2,7 @@ package ru.nikitos.topfive.rest.controller.payload;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import ru.nikitos.topfive.rest.entity.Top;
+import ru.nikitos.topfive.entities.TopType;
 
 public record NewTopPayload(
         @NotNull(message = "{ru.nikitos.msg.top.title.not_null}")
@@ -10,6 +10,6 @@ public record NewTopPayload(
         String title,
         String details,
         @NotNull
-        Top.TopType topType) {
+        TopType topType) {
 
 }

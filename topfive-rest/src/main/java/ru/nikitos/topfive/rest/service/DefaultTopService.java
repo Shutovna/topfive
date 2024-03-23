@@ -4,7 +4,8 @@ import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nikitos.topfive.rest.data.TopRepository;
-import ru.nikitos.topfive.rest.entity.Top;
+import ru.nikitos.topfive.entities.Top;
+import ru.nikitos.topfive.entities.TopType;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -26,7 +27,7 @@ public class DefaultTopService implements TopService {
     }
 
     @Override
-    public Top createTop(String title, String details, Top.TopType topType) {
+    public Top createTop(String title, String details, TopType topType) {
         return topRepository.save(Top.builder()
                 .type(topType).title(title).details(details)
                 .build());

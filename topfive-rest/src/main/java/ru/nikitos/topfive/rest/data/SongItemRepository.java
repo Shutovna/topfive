@@ -1,7 +1,7 @@
 package ru.nikitos.topfive.rest.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.nikitos.topfive.rest.entity.SongItem;
+import ru.nikitos.topfive.entities.SongItem;
 
 import java.util.List;
 

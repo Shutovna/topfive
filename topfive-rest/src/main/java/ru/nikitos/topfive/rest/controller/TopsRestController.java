@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.nikitos.topfive.rest.controller.payload.NewTopPayload;
-import ru.nikitos.topfive.rest.entity.Top;
+import ru.nikitos.topfive.entities.Top;
 import ru.nikitos.topfive.rest.service.TopService;
 
 import java.util.List;

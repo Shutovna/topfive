@@ -1,4 +1,4 @@
-package ru.nikitos.topfive.rest.entity;
+package ru.nikitos.topfive.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;

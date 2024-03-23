@@ -12,18 +12,12 @@
         <module name="topfive-rest" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="topfive-entity" target="17" />
-      <module name="topfive-rest-service" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="topfive" options="" />
       <module name="topfive-entities" options="-parameters" />
-      <module name="topfive-entity" options="-parameters" />
       <module name="topfive-rest" options="-parameters" />
-      <module name="topfive-rest-service" options="-parameters" />
       <module name="topfive-web" options="-parameters" />
     </option>
   </component>

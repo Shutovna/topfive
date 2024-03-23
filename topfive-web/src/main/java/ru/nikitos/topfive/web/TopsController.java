@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.nikitos.topfive.client.BadRequestException;
 import ru.nikitos.topfive.client.TopRestClient;
-import ru.nikitos.topfive.entity.Top;
-import ru.nikitos.topfive.entity.TopType;
+import ru.nikitos.topfive.entities.Top;
+import ru.nikitos.topfive.entities.TopType;
 import ru.nikitos.topfive.web.payload.NewTopPayload;
 
 import java.util.List;

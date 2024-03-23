@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import ru.nikitos.topfive.rest.data.GenreRepository;
-import ru.nikitos.topfive.rest.entity.Genre;
+import ru.nikitos.topfive.entities.Genre;
 
 import java.util.List;
 

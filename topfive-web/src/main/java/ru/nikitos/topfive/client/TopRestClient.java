@@ -1,7 +1,7 @@
 package ru.nikitos.topfive.client;
 
-import ru.nikitos.topfive.entity.Top;
-import ru.nikitos.topfive.entity.TopType;
+import ru.nikitos.topfive.entities.Top;
+import ru.nikitos.topfive.entities.TopType;
 
 import java.util.List;
 import java.util.Optional;
