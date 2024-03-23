@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"ru.nikitos.topfive.entities","ru.nikitos.topfive.rest.entity"})
+@EntityScan(basePackages = {"ru.nikitos.topfive.entities"})
 public class TopfiveRestApplication {
 
     public static void main(String[] args) {
