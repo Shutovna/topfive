@@ -11,8 +11,19 @@
     <li><strong>ID</strong>: <span data-th-text="${top.id}"></span></li>
     <li><strong>Название</strong>: <span data-th-text="${top.title}"></span></li>
     <li><strong>Описание</strong>: <span data-th-text="${top.details}"></span></li>
+    <li><strong>Тип</strong>: <span data-th-text="${top.type.name}"></span></li>
 </ul>
-<a data-th-href="@{/tops/{topId}/edit(topId=${top.id})}">Изменить</a>
+
+<div th:switch="${top.type}">
+    <p th:case="${T(ru.nikitos.topfive.entity.TopType).SONG}"><a data-th-href="@{/items/create?type=SONG}">+ Добавить песню</a></p>
+    <p th:case="${T(ru.nikitos.topfive.entity.TopType).VIDEO}"><a data-th-href="@{/items/create?type=VIDEO}">+ Добавить видео</a></p>
+    <p th:case="${T(ru.nikitos.topfive.entity.TopType).PHOTO}"><a data-th-href="@{/items/create?type=PHOTO}">+ Добавить фото</a></p>
+    <p th:case="*" data-th-text="${top.type}">User is some other thing </p>
+</div>
+
+<form method="get" data-th-action="@{/tops/{topId}/edit(topId=${top.id})}">
+    <button type="submit">Изменить</button>
+</form>
 <form method="post" data-th-action="@{/tops/{topId}/delete(topId=${top.id})}">
     <button type="submit">Удалить</button>
 </form>

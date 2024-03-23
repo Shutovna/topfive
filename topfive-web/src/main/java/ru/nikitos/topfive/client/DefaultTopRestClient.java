@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import ru.nikitos.topfive.entity.Top;
+import ru.nikitos.topfive.entity.TopType;
 import ru.nikitos.topfive.web.payload.NewTopPayload;
 import ru.nikitos.topfive.web.payload.UpdateTopPayload;
 
@@ -34,7 +34,7 @@ public class DefaultTopRestClient implements TopRestClient {
     }
 
     @Override
-    public Top createTop(String title, String details, Top.TopType type) {
+    public Top createTop(String title, String details, TopType type) {
         try {
             return this.restClient
                     .post()

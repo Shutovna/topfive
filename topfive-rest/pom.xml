@@ -8,14 +8,17 @@
         <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>ru.nikitos</groupId>
     <artifactId>topfive-rest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>topfive-rest</name>
     <description>topfive-rest</description>
+
     <properties>
         <java.version>17</java.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

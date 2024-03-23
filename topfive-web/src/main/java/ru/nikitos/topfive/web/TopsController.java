@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nikitos.topfive.client.BadRequestException;
 import ru.nikitos.topfive.client.TopRestClient;
 import ru.nikitos.topfive.entity.Top;
+import ru.nikitos.topfive.entity.TopType;
 import ru.nikitos.topfive.web.payload.NewTopPayload;
 
 import java.util.List;
@@ -21,8 +22,8 @@ public class TopsController {
     private TopRestClient topRestClient;
 
     @ModelAttribute(name = "topTypes")
-    public Enum<Top.TopType>[] topTypes() {
-        return Top.TopType.values();
+    public Enum<TopType>[] topTypes() {
+        return TopType.values();
     }
 
     @GetMapping("table")
