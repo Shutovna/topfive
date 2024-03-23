@@ -19,6 +19,6 @@ public class Authority {
     private Integer id;
 
     @NotNull
-    @Column(unique = true)
+    @Column(unique = true, updatable = false)
     private String authority;
 }

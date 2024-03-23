@@ -29,7 +29,8 @@ public class TopfiveUser {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(schema = "user_management",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+            inverseJoinColumns = @JoinColumn(name = "authority_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "authority_id"}))
     private List<Authority> authorities = new ArrayList<>();
 
 }
