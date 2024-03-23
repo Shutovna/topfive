@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/topfive-web/pom.xml" />
         <option value="$PROJECT_DIR$/topfive-rest-service/pom.xml" />
         <option value="$PROJECT_DIR$/topfive-rest/pom.xml" />
+        <option value="$PROJECT_DIR$/topfive-entities/pom.xml" />
       </list>
     </option>
   </component>

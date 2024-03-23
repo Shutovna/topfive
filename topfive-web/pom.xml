@@ -9,11 +9,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-
     <artifactId>topfive-web</artifactId>
     <name>topfive-web</name>
     <description>Topfive web application</description>
-
 
     <dependencies>
         <dependency>
@@ -66,6 +64,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.nikitos.topfive</groupId>
+            <artifactId>topfive-entities</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
