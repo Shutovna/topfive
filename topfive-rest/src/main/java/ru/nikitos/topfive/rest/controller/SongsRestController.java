@@ -8,32 +8,34 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import ru.nikitos.topfive.entities.Top;
+import ru.nikitos.topfive.entities.Song;
+import ru.nikitos.topfive.entities.payload.NewSongPayload;
 import ru.nikitos.topfive.entities.payload.NewTopPayload;
+import ru.nikitos.topfive.entities.Top;
+import ru.nikitos.topfive.rest.service.SongService;
 import ru.nikitos.topfive.rest.service.TopService;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("topfive-api/tops")
+@RequestMapping("topfive-api/songs")
 @RequiredArgsConstructor
 @Slf4j
-public class TopsRestController {
-
-    private final TopService productService;
+public class SongsRestController {
+    private final SongService songService;
 
     @GetMapping
-    public List<Top> findTops(@RequestParam(required = false) String filter) {
-        List<Top> tops = this.productService.findAllTops(filter);
-        log.debug("Showing {} tops", tops.size());
-        return tops;
+    public List<Song> findSongs() {
+        List<Song> songs = this.songService.findAllSongs();
+        log.debug("Showing {} songs", songs.size());
+        return songs;
     }
 
     @PostMapping
-    public ResponseEntity<?> createTop(@Valid @RequestBody NewTopPayload payload,
-                                       BindingResult bindingResult,
-                                       UriComponentsBuilder uriComponentsBuilder)
+    public ResponseEntity<?> createSong(@Valid @RequestBody NewSongPayload payload,
+                                        BindingResult bindingResult,
+                                        UriComponentsBuilder uriComponentsBuilder)
             throws BindException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
@@ -42,13 +44,13 @@ public class TopsRestController {
                 throw new BindException(bindingResult);
             }
         } else {
-            Top top = this.productService.createTop(payload.title(), payload.details(), payload.topType());
+            Song song = this.songService.createSong(payload);
             return ResponseEntity
                     .created(
                             uriComponentsBuilder
-                                    .replacePath("/topfive-api/tops/{topId}")
-                                    .build(Map.of("topId", top.getId()))
-                    ).body(top);
+                                    .replacePath("/topfive-api/songs/{songId}")
+                                    .build(Map.of("songId", song.getId()))
+                    ).body(song);
         }
     }
 }

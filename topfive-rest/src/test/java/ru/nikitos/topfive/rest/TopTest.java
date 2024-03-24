@@ -4,9 +4,11 @@ import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import ru.nikitos.topfive.entities.*;
+import ru.nikitos.topfive.rest.data.SongRepository;
 import ru.nikitos.topfive.rest.data.TopRepository;
-import ru.nikitos.topfive.entities.Top;
-import ru.nikitos.topfive.entities.TopType;
+
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TopTest {
     @Autowired
     TopRepository topRepository;
+    @Autowired
+    SongRepository songRepository;
+
     @Test
     public void testCreate() {
         Top top = new Top("newTitle", "newDetails", TopType.SONG);
@@ -63,5 +68,25 @@ public class TopTest {
         String expectedMessage = "Validation failed for classes";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void testAddRemoveItems() {
+        Top top = new Top("newTitle", "newDetails", TopType.SONG);
+        Song song = new Song("artist", "title", "desc",
+                "file.txt", new byte[0], null, null, null);
+        top.addItem(song);
+
+        song = songRepository.save(song);
+        top = topRepository.saveAndFlush(top);
+
+        Top topDB = topRepository.findById(top.getId()).orElseThrow();
+        assertEquals(song, topDB.getItems().get(0));
+
+        topDB.removeItem(song);
+        topRepository.saveAndFlush(topDB);
+        topDB = topRepository.findById(topDB.getId()).orElseThrow();
+        assertTrue(topDB.getItems().isEmpty());
+        assertTrue(song.getTops().isEmpty());
     }
 }

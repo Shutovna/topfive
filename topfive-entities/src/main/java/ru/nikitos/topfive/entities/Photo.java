@@ -9,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @Builder
-public class PhotoItem extends Item {
+public class Photo extends Item {
     protected String modelName;
 }

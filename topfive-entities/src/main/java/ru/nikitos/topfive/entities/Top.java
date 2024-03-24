@@ -7,7 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,7 +32,11 @@ public class Top {
     private String details;
 
     @ManyToMany
-    private Set<Item> items = new HashSet<>();
+    @JoinTable(name = "top_items",
+            joinColumns = @JoinColumn(name = "top_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
+    private List<Item> items = new ArrayList<>();
+
 
     @ManyToMany
     protected Set<Rating> ratings = new HashSet<>();
@@ -39,5 +45,15 @@ public class Top {
         this.title = title;
         this.details = details;
         this.type = type;
+    }
+
+    public void addItem(Item item) {
+        this.items.add(item);
+        item.getTops().add(this);
+    }
+
+    public void removeItem(Item item) {
+        this.items.remove(item);
+        item.getTops().remove(this);
     }
 }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление песни</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#datepicker").datepicker({dateFormat: "dd-mm-yy"}).val()
+        });
+    </script>
+</head>
+<body>
+<a data-th-href="@{/tops/{topId}(topId=${topId})}">К топу</a>
+<h1>Добавление песни</h1>
+<div data-th-if="${errors}">
+    <h2>Допущены ошибки</h2>
+    <ul>
+        <li data-th-each="error: ${errors}" data-th-text="${error}"></li>
+    </ul>
+</div>
+
+<form enctype="multipart/form-data" data-th-action="@{/items/song/create}" method="POST">
+    <input type="hidden" data-th-name="topId" data-th-value="${topId}">
+    <label>
+        Исполнитель:<br>
+        <input type="text" name="artist" data-th-value="${song?.artist}">
+    </label><br>
+    <label>
+        Название:<br>
+        <input type="text" name="title" data-th-value="${song?.title}">
+    </label><br>
+    <label>
+        Описание:<br>
+        <textarea name="description" data-th-text="${song?.description}"></textarea>
+    </label><br>
+    <label>
+        Битрейт:<br>
+        <input type="text" name="bitRate" data-th-value="${song?.bitRate}">
+    </label><br>
+    <label>
+        Дата выпуска:<br>
+        <input type="text" name="releasedAt" id="datepicker" data-th-value="${song?.releasedAt}">
+    </label><br>
+
+    <label>
+        Файл:<br>
+        <input type="file" name="file"/>
+    </label><br>
+
+    <button type="submit">Создать</button>
+</form>
+
+</body>
+</html>

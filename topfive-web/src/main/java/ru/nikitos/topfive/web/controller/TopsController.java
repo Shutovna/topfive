@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.nikitos.topfive.entities.payload.NewTopPayload;
 import ru.nikitos.topfive.web.client.BadRequestException;
 import ru.nikitos.topfive.web.client.TopRestClient;
 import ru.nikitos.topfive.entities.Top;
 import ru.nikitos.topfive.entities.TopType;
-import ru.nikitos.topfive.web.controller.payload.NewTopPayload;
 
 import java.util.List;
 
@@ -41,9 +41,9 @@ public class TopsController {
     }
 
     @PostMapping("create")
-    public String createTop(@Valid NewTopPayload topPayload, Model model) {
+    public String createTop(NewTopPayload topPayload, Model model) {
         try {
-            Top top = topRestClient.createTop(topPayload.title(), topPayload.details(), topPayload.topType());
+            Top top = topRestClient.createTop(topPayload);
             log.info("Created {}", top);
             return "redirect:/tops/%d".formatted(top.getId());
         } catch (BadRequestException e) {

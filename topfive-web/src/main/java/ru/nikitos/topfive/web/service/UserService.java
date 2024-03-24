@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
         Optional<TopfiveUser> topfiveUserFromDB = userRepository.findByUsername(username);
         if (topfiveUserFromDB.isEmpty()) {
             TopfiveUser topfiveUser = new TopfiveUser(username, bCryptPasswordEncoder.encode(password));
-            Authority authority = authorityRepository.findByAuthorityEquals("ROLE_USER").orElseThrow(
+            Authority authority = authorityRepository.findByAuthority("ROLE_USER").orElseThrow(
                     IllegalStateException::new
             );
             topfiveUser.setAuthorities(Arrays.asList(authority));

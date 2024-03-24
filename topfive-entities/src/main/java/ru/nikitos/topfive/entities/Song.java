@@ -11,20 +11,21 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class SongItem extends Item {
+public class Song extends Item {
     @NotNull
-    protected String artist;
+    protected String artist="artist";
 
-    protected Date releasedAt;
+    protected Date releasedAt = new Date();
 
-    protected Integer bitRate;
+    protected Integer bitRate = 321;
 
     @ManyToOne
     protected Genre genre;
 
     @Builder
-    public SongItem(String artist, String title, String description, @NotNull byte[] data, Date releasedAt, int bitRate, Genre genre) {
-        super(title, description, data);
+    public Song(String artist, String title, String description, @NotNull String fileName, @NotNull byte[] data,
+                Date releasedAt, Integer bitRate, Genre genre) {
+        super(title, description, fileName, data);
         this.artist = artist;
         this.releasedAt = releasedAt;
         this.bitRate = bitRate;

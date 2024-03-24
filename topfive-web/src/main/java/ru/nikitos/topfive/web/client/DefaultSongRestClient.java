@@ -1,87 +1,90 @@
 package ru.nikitos.topfive.web.client;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
-import ru.nikitos.topfive.entities.Top;
-import ru.nikitos.topfive.entities.TopType;
-import ru.nikitos.topfive.entities.payload.NewTopPayload;
-import ru.nikitos.topfive.entities.payload.UpdateTopPayload;
+import ru.nikitos.topfive.entities.Song;
+import ru.nikitos.topfive.entities.payload.NewSongPayload;
+import ru.nikitos.topfive.entities.payload.UpdateSongPayload;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@RequiredArgsConstructor
-public class DefaultTopRestClient implements TopRestClient {
+public class DefaultSongRestClient implements SongRestClient {
 
-    private static final ParameterizedTypeReference<List<Top>> TOPS_TYPE_REFERENCE =
+    public static final ParameterizedTypeReference<List<Song>> SONG_TYPE_REFERENCE =
             new ParameterizedTypeReference<>() {
             };
-
     private final RestClient restClient;
 
-    @Override
-    public List<Top> findAllTops(String filter) {
-        return this.restClient
-                .get()
-                .uri("/topfive-api/tops?filter={filter}", filter)
-                .retrieve()
-                .body(TOPS_TYPE_REFERENCE);
+    public DefaultSongRestClient(RestClient restClient) {
+        this.restClient = restClient;
     }
 
     @Override
-    public Top createTop(NewTopPayload newTopPayload) {
+    public List<Song> findAllSongs() {
+        return this.restClient
+                .get()
+                .uri("/topfive-api/songs")
+                .retrieve()
+                .body(SONG_TYPE_REFERENCE);
+    }
+
+    @Override
+    public Song createSong(NewSongPayload newSongPayload) {
         try {
             return this.restClient
                     .post()
-                    .uri("/topfive-api/tops")
+                    .uri("/topfive-api/songs")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(newTopPayload)
+                    .body(newSongPayload)
                     .retrieve()
-                    .body(Top.class);
+                    .body(Song.class);
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
         }
     }
 
-    public Optional<Top> findTop(Long topId) {
+    @Override
+    public Optional<Song> findSong(Integer songId) {
         try {
-            return Optional.ofNullable(this.restClient.get()
-                    .uri("/topfive-api/tops/{topId}", topId)
-                    .retrieve()
-                    .body(Top.class));
+            return Optional.ofNullable(
+                    this.restClient.get()
+                            .uri("/topfive-api/songs/{songId}", songId)
+                            .retrieve()
+                            .body(Song.class));
         } catch (HttpClientErrorException.NotFound exception) {
             return Optional.empty();
         }
     }
 
     @Override
-    public void updateTop(Long topId, UpdateTopPayload updateTopPayload) {
+    public void updateSong(Integer songId, UpdateSongPayload updateSongPayload) {
         try {
             this.restClient
                     .patch()
-                    .uri("/topfive-api/tops/{topId}", topId)
+                    .uri("/topfive-api/songs/{songId}", songId)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(updateTopPayload)
+                    .body(updateSongPayload)
                     .retrieve()
                     .toBodilessEntity();
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
         }
+
     }
 
     @Override
-    public void deleteTop(Long topId) {
+    public void deleteSong(Integer songId) {
         try {
             this.restClient
                     .delete()
-                    .uri("/topfive-api/tops/{topId}", topId)
+                    .uri("/topfive-api/songs/{songId}", songId)
                     .retrieve()
                     .toBodilessEntity();
         } catch (HttpClientErrorException.NotFound exception) {

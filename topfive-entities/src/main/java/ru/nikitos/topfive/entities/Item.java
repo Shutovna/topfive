@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,20 +22,27 @@ public abstract class Item {
     protected Integer id;
 
     @NotNull
-    protected String title;
+    protected String title = "title";
 
     @Lob
     @NotNull
     protected byte[] data;
 
-    protected String description;
+    @NotNull
+    protected String fileName;
+
+    protected String description = "description";
+
+    @ManyToMany(mappedBy = "items")
+    protected List<Top> tops = new ArrayList<>();
 
     @ManyToMany
     protected Set<Rating> ratings = new HashSet<>();
 
-    public Item(@NotNull String title, String description, @NotNull byte[] data) {
+    public Item(@NotNull String title, String description, @NotNull String fileName, @NotNull byte[] data) {
         this.title = title;
         this.description = description;
+        this.fileName = fileName;
         this.data = data;
     }
 }

@@ -1,19 +1,19 @@
 package ru.nikitos.topfive.web;
 
-import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.context.jdbc.Sql;
 import ru.nikitos.topfive.web.data.AuthorityRepository;
 import ru.nikitos.topfive.web.entity.Authority;
-import ru.nikitos.topfive.web.entity.TopfiveUser;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@Sql("/test-data.sql")
 public class AuthorityTest {
     @Autowired
     AuthorityRepository authorityRepository;
@@ -35,8 +35,8 @@ public class AuthorityTest {
     @Test
     public void testFailUnique() {
         Exception exception = assertThrows(DataIntegrityViolationException.class, () -> {
-            Authority auth = authorityRepository.saveAndFlush(new Authority(null, "TEST_AUTHORITY"));
-            Authority auth2 = authorityRepository.saveAndFlush(new Authority(null, "TEST_AUTHORITY"));
+            authorityRepository.saveAndFlush(new Authority(null, "TEST_AUTHORITY"));
+            authorityRepository.saveAndFlush(new Authority(null, "TEST_AUTHORITY"));
 
         });
         String expectedMessage = "could not execute statement";

@@ -1,0 +1,1 @@
+/*insert into user_management.authority (id, authority) values  (1, 'ROLE_USER');*/

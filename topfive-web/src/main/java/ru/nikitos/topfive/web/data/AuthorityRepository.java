@@ -6,5 +6,5 @@ import ru.nikitos.topfive.web.entity.Authority;
 import java.util.Optional;
 
 public interface AuthorityRepository extends JpaRepository<Authority, Integer> {
-    Optional<Authority> findByAuthorityEquals(String authority);
+    Optional<Authority> findByAuthority(String authority);
 }

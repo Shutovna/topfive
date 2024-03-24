@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "user_management")
+@Table(name = "authority", schema = "user_management")
 public class Authority {
     @Id
     @SequenceGenerator(name = "topfive_seq", sequenceName = "common_sequence", initialValue = 1000, allocationSize = 1)

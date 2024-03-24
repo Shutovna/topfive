@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.core.io.Resource;
+import ru.nikitos.topfive.entities.Video;
 import ru.nikitos.topfive.rest.data.GenreRepository;
 import ru.nikitos.topfive.rest.data.VideoItemRepository;
 import ru.nikitos.topfive.entities.Genre;
-import ru.nikitos.topfive.entities.VideoItem;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +27,8 @@ public class VideoItemTest {
     @Value("classpath:example_file.xml")
     private Resource exampleFile;
 
+    private String fileName = "example_file.xml";
+
     @Test
     public void testFindNone() {
         assertTrue(videoItemRepository.findAll().isEmpty());
@@ -37,13 +39,13 @@ public class VideoItemTest {
         Genre genre = genreRepository.findById(1).orElseThrow();
         byte[] contentAsByteArray = exampleFile.getContentAsByteArray();
 
-        VideoItem video = getVideo(genre, contentAsByteArray);
+        Video video = getVideo(genre, contentAsByteArray);
         videoItemRepository.saveAndFlush(video);
 
-        List<VideoItem> videos = videoItemRepository.findAll();
+        List<Video> videos = videoItemRepository.findAll();
         assertEquals(1, videos.size());
 
-        VideoItem videoDB = videos.get(0);
+        Video videoDB = videos.get(0);
         assertEquals("Gladiator", videoDB.getTitle());
         assertEquals("best film", videoDB.getDescription());
         assertEquals("Crow", videoDB.getActors());
@@ -57,16 +59,17 @@ public class VideoItemTest {
     public void testUpdate() throws IOException {
         Genre genre = genreRepository.findById(1).orElseThrow();
         byte[] contentAsByteArray = exampleFile.getContentAsByteArray();
-        VideoItem video = getVideo(genre, contentAsByteArray);
+        Video video = getVideo(genre, contentAsByteArray);
         videoItemRepository.saveAndFlush(video);
 
-        VideoItem videoItem = videoItemRepository.findAll().get(0);
+        Video videoItem = videoItemRepository.findAll().get(0);
         videoItem.setActors("newActors");
         videoItem.setDirector("newDirector");
         Genre genre2 = genreRepository.findById(2).orElseThrow();
         videoItem.setGenre(genre2);
         videoItem.setReleasedYear(2012);
         contentAsByteArray[0] = 55;
+        videoItem.setFileName("file.mp3");
         videoItem.setData(contentAsByteArray);
         videoItem.setDescription("newDescription");
         videoItem = videoItemRepository.saveAndFlush(videoItem);
@@ -75,16 +78,18 @@ public class VideoItemTest {
         assertEquals("newDirector", videoItem.getDirector());
         assertEquals(genre2, videoItem.getGenre());
         assertEquals(2012, videoItem.getReleasedYear());
+        assertEquals("file.mp3", videoItem.getFileName());
         assertArrayEquals(contentAsByteArray, videoItem.getData());
         assertEquals("newDescription", videoItem.getDescription());
     }
 
-    private VideoItem getVideo(Genre genre, byte[] contentAsByteArray) {
-        return VideoItem.builder()
+    private Video getVideo(Genre genre, byte[] contentAsByteArray) {
+        return Video.builder()
                 .title("Gladiator").description("best film")
                 .actors("Crow").director("Scott")
                 .releasedYear(2000)
                 .genre(genre)
+                .fileName(fileName)
                 .data(contentAsByteArray)
                 .build();
     }
@@ -92,7 +97,7 @@ public class VideoItemTest {
     @Test
     public void testFailsWhenEmptySong() {
         Exception exception = assertThrows(ConstraintViolationException.class, () -> {
-            VideoItem song = new VideoItem();
+            Video song = new Video();
             videoItemRepository.saveAndFlush(song);
         });
         String expectedMessage = "Validation failed for classes";
@@ -103,7 +108,7 @@ public class VideoItemTest {
     @Test
     public void testFailsWhenEmptyBaseClassSong() {
         Exception exception = assertThrows(ConstraintViolationException.class, () -> {
-            VideoItem song = VideoItem.builder()
+            Video song = Video.builder()
                     .actors("test").director("director")
                     .releasedYear(2000)
                     .genre(genreRepository.findById(1).orElseThrow())

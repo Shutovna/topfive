@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.context.jdbc.Sql;
 import ru.nikitos.topfive.web.data.AuthorityRepository;
 import ru.nikitos.topfive.web.data.UserRepository;
 import ru.nikitos.topfive.web.entity.Authority;
@@ -16,6 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@Sql("/test-data.sql")
 public class TopfiveUserTest {
 
     @Autowired
@@ -27,7 +29,7 @@ public class TopfiveUserTest {
     @Test
     public void testFindAll() {
         List<TopfiveUser> all = userRepository.findAll();
-        assertTrue(all.isEmpty());
+        assertTrue(all.size() == 1);
     }
 
     @Test
